@@ -24,24 +24,34 @@ Dependencies:
 ## Installing
 
 Clone source
+```
     git clone https://github.com/irahardianto/service-pattern-go
+```
 
 Set dependencies
+```
     go get github.com/go-chi/chi
     go get github.com/mattn/go-sqlite3
     go get golang.org/x/crypto
     go get github.com/dgrijalva/jwt-go
     go get github.com/go-ozzo/ozzo-validation/v
     go get bitbucket.org/liamstask/goose
+```
 
 Copy Env File
+```
     cp env.sample .env
+```
 
 Run the test to make sure all run well (TODO)
+```
     go test ./... -v
+```
 
 Build and run the server
+```
     go build && ./go-clean-rest-api
+```
 
 ## Endpoints
 
