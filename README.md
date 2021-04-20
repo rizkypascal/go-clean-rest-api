@@ -1,5 +1,6 @@
 # go-clean-rest-api
 Sample CRUD API using Golang and SQLite3. This project follows SOLID principles which contains of this structure
+```
     /
     |- controllers
     |- db
@@ -11,6 +12,7 @@ Sample CRUD API using Golang and SQLite3. This project follows SOLID principles 
     container.go
     main.go
     router.go
+```
 
 Dependencies:
 - [Chi Router](github.com/go-chi/chi)
