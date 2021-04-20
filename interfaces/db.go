@@ -3,7 +3,7 @@ package interfaces
 import "database/sql"
 
 type IDbHandler interface {
-	Execute(statement string)
+	Execute(statement string) (sql.Result, error)
 	Query(statement string, args ...interface{}) (IRow, error)
 	PrepareAndExec(statement string, args ...interface{}) (sql.Result, error)
 }

@@ -2,7 +2,6 @@ package infrastructures
 
 import (
 	"database/sql"
-	"fmt"
 
 	"github.com/rizkypascal/go-clean-rest-api/interfaces"
 )
@@ -11,18 +10,23 @@ type SQLiteHandler struct {
 	Conn *sql.DB
 }
 
-func (handler *SQLiteHandler) Execute(statement string) {
-	handler.Conn.Exec(statement)
+func (handler *SQLiteHandler) Execute(statement string) (sql.Result, error) {
+	result, err := handler.Conn.Exec(statement)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return result, nil
 }
 
 func (handler *SQLiteHandler) Query(statement string, args ...interface{}) (interfaces.IRow, error) {
-	//fmt.Println(statement)
-	rows, err := handler.Conn.Query(statement, args)
+	rows, err := handler.Conn.Query(statement, args...)
 
 	if err != nil {
-		fmt.Println(err)
 		return new(SqliteRow), err
 	}
+
 	row := new(SqliteRow)
 	row.Rows = rows
 
@@ -34,7 +38,8 @@ func (handler *SQLiteHandler) PrepareAndExec(statement string, args ...interface
 	if err != nil {
 		return nil, err
 	}
-	result, err := stmt.Exec(args)
+
+	result, err := stmt.Exec(args...)
 
 	if err != nil {
 		return nil, err

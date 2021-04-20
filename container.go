@@ -1,6 +1,7 @@
 package main
 
 import (
+	"log"
 	"sync"
 
 	"github.com/rizkypascal/go-clean-rest-api/controllers"
@@ -9,6 +10,8 @@ import (
 	"github.com/rizkypascal/go-clean-rest-api/services"
 
 	"database/sql"
+
+	_ "github.com/mattn/go-sqlite3"
 )
 
 type IContainer interface {
@@ -18,8 +21,10 @@ type IContainer interface {
 type kernel struct{}
 
 func (k *kernel) InjectUserController() controllers.UserController {
-
-	sqlConn, _ := sql.Open("sqlite3", "/var/tmp/user.db")
+	sqlConn, err := sql.Open("sqlite3", "database.db")
+	if err != nil {
+		log.Fatal(err)
+	}
 	sqliteHandler := &infrastructures.SQLiteHandler{}
 	sqliteHandler.Conn = sqlConn
 

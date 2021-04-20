@@ -2,20 +2,21 @@ package services
 
 import (
 	"log"
+	"os"
 
 	"golang.org/x/crypto/bcrypt"
 
 	"github.com/dgrijalva/jwt-go"
 )
 
-var SECRET_KEY = []byte("gosecretkey")
+var SECRET_KEY = []byte(os.Getenv("SECRET_KEY"))
 
-func getHash(pwd []byte) string {
+func getHash(pwd []byte) (string, error) {
 	hash, err := bcrypt.GenerateFromPassword(pwd, bcrypt.MinCost)
 	if err != nil {
-		log.Println(err)
+		return "", err
 	}
-	return string(hash)
+	return string(hash), nil
 }
 
 func GenerateJWT() (string, error) {
