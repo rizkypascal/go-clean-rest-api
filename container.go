@@ -23,9 +23,9 @@ func (k *kernel) InjectUserController() controllers.UserController {
 	sqliteHandler := &infrastructures.SQLiteHandler{}
 	sqliteHandler.Conn = sqlConn
 
-	userRepository := &repositories.UserRepository{sqliteHandler}
-	userService := &services.UserService{userRepository}
-	userController := controllers.UserController{userService}
+	userRepository := &repositories.UserRepository{IDbHandler: sqliteHandler}
+	userService := &services.UserService{IUserRepository: userRepository}
+	userController := controllers.UserController{IUserService: userService}
 
 	return userController
 }
