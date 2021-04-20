@@ -54,10 +54,11 @@ Build and run the server
 ```
 
 ## Endpoints
-
+```
 POST /users
 POST /users/login
 GET /users/:id
 GET /users
 PATCH /users/:id
 DELETE /users/:id
+```
